@@ -59,7 +59,7 @@ async function getSongs(folder) {
 
 
 const playMusic = (track,pause= false) => {    
-    currentsong.src = `https://shubham-py404.github.io/WEB-HOSTING/spotify/${currfolder}/` + track + ".mp3"
+    currentsong.src = `${currfolder}/` + track + ".mp3"
     if(!pause){
         currentsong.play();
         play.src= "logos/pause.svg"
@@ -82,7 +82,7 @@ async function displayAlbums() {
         if (e.href.includes("/audio/") && !e.href.includes(".htaccess")) {
             let folder = e.href.split("/").slice(-2)[1]
             // Get the metadata of the folder
-            let a = await fetch(`https://shubham-py404.github.io/WEB-HOSTING/spotify/${folder}/info.json`)
+            let a = await fetch(`audio/${folder}/info.json`)
             let response = await a.json(); 
             cardContainer.innerHTML = cardContainer.innerHTML + ` 
             <div data-folder="${folder}"class="card">
