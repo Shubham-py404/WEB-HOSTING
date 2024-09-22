@@ -108,7 +108,7 @@ async function displayAlbums() {
     Array.from(document.getElementsByClassName("card")).forEach(e=>{
         e.addEventListener("click", async (item)=>{
             // console.log(item.currentTarget.dataset);
-            songs = await getSongs(`https://shubham-py404.github.io/WEB-HOSTING/spotify/audio/${item.currentTarget.dataset.folder}`)
+            songs = await getSongs(`spotify/audio/${item.currentTarget.dataset.folder}`)
         })
     })
 
@@ -117,7 +117,7 @@ async function displayAlbums() {
         e.addEventListener("click", async (item) => {
             item.stopPropagation(); // Stop the click event from propagating to the card
             let folder = e.closest('.card').dataset.folder;
-            songs = await getSongs(`https://shubham-py404.github.io/WEB-HOSTING/spotify/audio/${folder}`);
+            songs = await getSongs(`spotify/audio/${folder}`);
             playMusic(songs[0]); // Play the first song
         });
     });
