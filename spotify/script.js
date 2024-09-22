@@ -17,7 +17,7 @@ function secondsToMinutesSeconds(seconds) {
 
 async function getSongs(folder) {
     currfolder= folder
-    let a = await fetch(`https://shubham-py404.github.io/WEB-HOSTING/spotify/${folder}/`)
+    let a = await fetch(`https://shubham-py404.github.io/WEB-HOSTING/${folder}/`)
     let response = await a.text();
     let div = document.createElement("div")
     div.innerHTML = response;
@@ -59,7 +59,7 @@ async function getSongs(folder) {
 
 
 const playMusic = (track,pause= false) => {    
-    currentsong.src = `https://shubham-py404.github.io/WEB-HOSTING/spotify/${currfolder}/` + track + ".mp3"
+    currentsong.src = `https://shubham-py404.github.io/WEB-HOSTING/${currfolder}/` + track + ".mp3"
     if(!pause){
         currentsong.play();
         play.src= "logos/pause.svg"
@@ -70,7 +70,7 @@ const playMusic = (track,pause= false) => {
 
 async function displayAlbums() {
     console.log("displaying albums")
-    let a = await fetch(`https://shubham-py404.github.io/WEB-HOSTING/spotify/audio/`)
+    let a = await fetch(`https://shubham-py404.github.io/WEB-HOSTING/audio/`)
     let response = await a.text();
     let div = document.createElement("div")
     div.innerHTML = response;
@@ -82,7 +82,7 @@ async function displayAlbums() {
         if (e.href.includes("/audio/") && !e.href.includes(".htaccess")) {
             let folder = e.href.split("/").slice(-2)[1]
             // Get the metadata of the folder
-            let a = await fetch(`https://shubham-py404.github.io/WEB-HOSTING/spotify/audio/${folder}/info.json`)
+            let a = await fetch(`https://shubham-py404.github.io/WEB-HOSTING/spotify${folder}/info.json`)
             let response = await a.json(); 
             cardContainer.innerHTML = cardContainer.innerHTML + ` 
             <div data-folder="${folder}"class="card">
