@@ -82,7 +82,7 @@ async function displayAlbums() {
         if (e.href.includes("/audio/") && !e.href.includes(".htaccess")) {
             let folder = e.href.split("/").slice(-2)[1]
             // Get the metadata of the folder
-            let a = await fetch(`https://shubham-py404.github.io/WEB-HOSTING/spotify/audio/${folder}/info.json`)
+            let a = await fetch(`https://shubham-py404.github.io/WEB-HOSTING/spotify/${folder}/info.json`)
             let response = await a.json(); 
             cardContainer.innerHTML = cardContainer.innerHTML + ` 
             <div data-folder="${folder}"class="card">
@@ -93,7 +93,7 @@ async function displayAlbums() {
                     </span>
                     </span>
                 </div>
-                <img src="spotify/audio/${folder}/cover.jpeg" alt="song">
+                <img src="/audio/${folder}/cover.jpeg" alt="song">
                 <div class="infocont">
                     <h2>${response.title}</h2>
                     <p>${response.description}</p>
@@ -108,7 +108,7 @@ async function displayAlbums() {
     Array.from(document.getElementsByClassName("card")).forEach(e=>{
         e.addEventListener("click", async (item)=>{
             // console.log(item.currentTarget.dataset);
-            songs = await getSongs(`spotify/audio/${item.currentTarget.dataset.folder}`)
+            songs = await getSongs(`/audio/${item.currentTarget.dataset.folder}`)
         })
     })
 
