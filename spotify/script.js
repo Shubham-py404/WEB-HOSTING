@@ -59,10 +59,9 @@ async function getSongs(folder) {
     return songs;
 }
 
-const playMusic = (track, pause = false) => {
-    const baseURL = 'https://shubham-py404.github.io/WEB-HOSTING/spotify/';
-    currentsong.src = `${baseURL}audio/${currfolder}/` + track + ".mp3";
-    if (!pause) {
+const playMusic = (track,pause= false) => {    
+    currentsong.src = `https://shubham-py404.github.io/WEB-HOSTING/spotify/${currfolder}/` + track + ".mp3"
+    if(!pause){
         currentsong.play();
         play.src = "logos/pause.svg";
     }
@@ -84,13 +83,13 @@ async function displayAlbums() {
     for (let index = 0; index < array.length; index++) {
         const e = array[index];
         if (e.href.includes("/audio/") && !e.href.includes(".htaccess")) {
-            let folder = e.href.split("/").slice(-2)[1];
-            let albumInfo = await fetch(`${baseURL}audio/${folder}/info.json`);
-            let response = await albumInfo.json();
-
-            cardContainer.innerHTML += `
-            <div data-folder="${folder}" class="card">
-                <div class="playy">
+            let folder = e.href.split("/").slice(-2)[1]
+            // Get the metadata of the folder
+            let a = await fetch(`https://shubham-py404.github.io/WEB-HOSTING/spotify/audio/${folder}/info.json`)
+            let response = await a.json(); 
+            cardContainer.innerHTML = cardContainer.innerHTML + ` 
+            <div data-folder="${folder}"class="card">
+                <div class="playy" >
                     <span class="Buttoninner">
                         <span aria-hidden="true" class="IconWrapper">
                             <svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 24 24" class="Svg-sc-ytk21e-0 bneLcE">
@@ -99,7 +98,7 @@ async function displayAlbums() {
                         </span>
                     </span>
                 </div>
-                <img src="${baseURL}audio/${folder}/cover.jpeg" alt="song">
+                <img src="spotify/audio/${folder}/cover.jpeg" alt="song">
                 <div class="infocont">
                     <h2>${response.title}</h2>
                     <p>${response.description}</p>
@@ -107,18 +106,16 @@ async function displayAlbums() {
             </div>`;
         }
     }
-
-    document.querySelector(".CardContainer").addEventListener("click", e => {
-        document.querySelector(".left").style.left = 0;
-    });
-
-    // Load playlist when album is clicked
-    Array.from(document.getElementsByClassName("card")).forEach(e => {
-        e.addEventListener("click", async item => {
-            let folder = item.currentTarget.dataset.folder;
-            songs = await getSongs(folder);
-        });
-    });
+    document.querySelector(".CardContainer").addEventListener("click",e=>{
+        document.querySelector(".left").style.left=0;
+    })
+    // Load the playlist whenever card is clicked
+    Array.from(document.getElementsByClassName("card")).forEach(e=>{
+        e.addEventListener("click", async (item)=>{
+            // console.log(item.currentTarget.dataset);
+            songs = await getSongs(`spotify/audio/${item.currentTarget.dataset.folder}`)
+        })
+    })
 
     // Handle play button inside the card
     Array.from(document.getElementsByClassName("playy")).forEach(e => {
