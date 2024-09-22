@@ -28,7 +28,7 @@ async function getSongs(folder) {
         const element = as[i];
         if (element.href.endsWith(".mp3"))  {
             let h = element.href.split(".mp3")[0]
-            songs.push(h.split(`https://shubham-py404.github.io/WEB-HOSTING/spotify/${folder}/`)[1])
+            songs.push(h.split(`https://shubham-py404.github.io/WEB-HOSTING/${folder}/`)[1])
         }
     }
     let songUl = document.querySelector(".songlist").getElementsByTagName("ul")[0]
@@ -82,7 +82,7 @@ async function displayAlbums() {
         if (e.href.includes("/audio/") && !e.href.includes(".htaccess")) {
             let folder = e.href.split("/").slice(-2)[1]
             // Get the metadata of the folder
-            let a = await fetch(`https://shubham-py404.github.io/WEB-HOSTING/spotify${folder}/info.json`)
+            let a = await fetch(`https://shubham-py404.github.io/WEB-HOSTING/${folder}/info.json`)
             let response = await a.json(); 
             cardContainer.innerHTML = cardContainer.innerHTML + ` 
             <div data-folder="${folder}"class="card">
